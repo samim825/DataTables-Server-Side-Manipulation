@@ -4,6 +4,8 @@ import com.example.crud.model.Student;
 import com.example.crud.repository.StudentRepository;
 import com.example.crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAll() {
-        return (List<Student>) studentRepository.findAll();
+    public Page<Student> findAll(Pageable pageable) {
+        return  studentRepository.findAll(pageable);
     }
 }

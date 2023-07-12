@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page import="com.example.crud.model.Student" %>
+<%@ page import="org.springframework.data.domain.Page" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,38 +49,38 @@
     <br>
 </header>
 <div class="container">
-    <br><br><br><br>
+    <br><br>
     <table class="table table-hover table-striped table-bordered" id="myTable">
         <thead>
         <tr>
-            <th>SL No</th>
+<%--            <th>SL No</th>--%>
+            <th>ID</th>
             <th>Name</th>
             <th>E-mail</th>
             <th>Dept</th>
-            <th>ID</th>
         </tr>
         </thead>
-        <tbody>
-        <% ArrayList<Student> infos = (ArrayList<Student>) request.getAttribute("students");
-            int cnt=1;
-            for(Student student:infos){
-        %>
-        <tr>
-            <td><%= cnt%></td>
-            <td><%= student.getName()%></td>
-            <td><%= student.getEmail()%></td>
-            <td><%= student.getDept()%></td>
-            <td><%= student.getId()%></td>
-        </tr>
-        <% cnt++; } %>
-        </tbody>
     </table>
     <br>
 </div>
 
 <script>
     $(document).ready( function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            "processing" : true,
+            "serverSide" : true,
+            // "pageLength" : 10,
+            "ajax" : {
+                "url" : "/api/students",
+            },
+            "columns" : [
+                {"data" : "id"},
+                {"data" : "name"},
+                {"data" : "email"},
+                {"data" : "dept"},
+            ]
+
+        });
     } );
 </script>
 </body>

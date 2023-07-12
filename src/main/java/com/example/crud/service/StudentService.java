@@ -1,6 +1,8 @@
 package com.example.crud.service;
 
 import com.example.crud.model.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +17,5 @@ public interface StudentService {
 
     void deleteById(Integer id);
 
-    List<Student> findAll();
+    Page<Student> findAll(Pageable pageable);
 }
