@@ -1,0 +1,11 @@
+<User>
+    <id>11c54a3d-f91b-46b3-8ae4-c3e5738ca4b3</id>
+    <firstName>Abdur</firstName>
+    <lastName>Rahim</lastName>
+    <email>rahim12@gmail.com</email>
+    <password>1234</password>
+    <profilePhoto></profilePhoto>
+    <coverPhoto></coverPhoto>
+    <joiningDate>1970-01-01T00:00:00.000+00:00</joiningDate>
+    <postList/>
+</User>
