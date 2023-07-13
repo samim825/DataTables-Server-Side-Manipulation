@@ -51,32 +51,47 @@
 <div class="container">
     <br><br>
     <table class="table table-hover table-striped table-bordered" id="myTable">
-        <thead>
-        <tr>
-<%--            <th>SL No</th>--%>
-            <th>ID</th>
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Dept</th>
-        </tr>
-        </thead>
+
     </table>
     <br>
 </div>
 
 <script>
     $(document).ready( function () {
-        $('#myTable').DataTable({
+      var myTable =   $('#myTable').DataTable({
             "processing" : true,
             "serverSide" : true,
             "ajax" : {
                 "url" : "/api/students",
             },
             "columns" : [
-                {"data" : "id"},
-                {"data" : "name"},
-                {"data" : "email"},
-                {"data" : "dept"},
+                // {
+                //     "title" : "SL.No",
+                //     "rowCallback" : function (row, data, index) {
+                //         var  counter = index + 1;
+                //         $('td:eq(0)', row).text(counter);
+                //     }
+                // },
+                {   "title" : "ID",
+                    "data" : "id"
+                },
+                {   "title" : "Name",
+                    "data" : "name"
+                },
+                {   "title" : "E-mail",
+                    "data" : "email"
+                },
+                {   "title" : "Dept",
+                    "data" : "dept"
+                },
+                {
+                    "title" : "Action",
+                    "data" : null,
+                    "orderable" : false,
+                    "render" : function (data) {
+                        return '<a href="/edit/'+data.id+'">Edit</a> <a href="/edit/'+data.id+'">Delete</a>';
+                    }
+                }
             ]
 
         });

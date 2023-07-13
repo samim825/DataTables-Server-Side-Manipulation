@@ -76,7 +76,7 @@ public class StudentController {
         DataTableResponse<Student> dataTableResponse = new DataTableResponse<>();
         dataTableResponse.setDraw(draw);
         dataTableResponse.setData(studentList.getContent());
-        dataTableResponse.setRecordsFiltered(studentList.getTotalElements());
+        dataTableResponse.setRecordsTotal(studentList.getTotalElements());
         dataTableResponse.setRecordsFiltered(studentList.getTotalElements());
 
         return dataTableResponse;
