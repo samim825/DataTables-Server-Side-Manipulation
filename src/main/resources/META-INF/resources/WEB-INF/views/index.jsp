@@ -69,7 +69,6 @@
         $('#myTable').DataTable({
             "processing" : true,
             "serverSide" : true,
-            // "pageLength" : 10,
             "ajax" : {
                 "url" : "/api/students",
             },

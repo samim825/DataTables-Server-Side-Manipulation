@@ -1,5 +1,7 @@
 package com.example.crud.dto;
 
+import lombok.Builder;
+
 import java.util.List;
 
 public class DataTableResponse <T>{

@@ -53,25 +53,10 @@
 			<version>9.0.33</version>
 		</dependency>
 
-		<!-- Swagger -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.maven.doxia</groupId>
-			<artifactId>doxia-core</artifactId>
-			<version>1.0</version>
-		</dependency>
-
 
 
 

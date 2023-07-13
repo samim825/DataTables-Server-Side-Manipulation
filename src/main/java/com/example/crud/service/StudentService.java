@@ -18,4 +18,8 @@ public interface StudentService {
     void deleteById(Integer id);
 
     Page<Student> findAll(Pageable pageable);
+
+    Page<Student> searchStudents(String search, Pageable pageable);
+
+
 }

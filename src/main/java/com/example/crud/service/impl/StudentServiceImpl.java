@@ -40,4 +40,9 @@ public class StudentServiceImpl implements StudentService {
     public Page<Student> findAll(Pageable pageable) {
         return  studentRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Student> searchStudents(String search, Pageable pageable) {
+        return studentRepository.searchBy(search, pageable);
+    }
 }
