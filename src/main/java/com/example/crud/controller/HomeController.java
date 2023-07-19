@@ -22,9 +22,6 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView showHomePage(ModelAndView modelAndView){
 
-//        Pageable pageable = PageRequest.of(0,30);
-//        Page<Student> studentList = studentService.findAll(pageable);
-//        modelAndView.addObject("students", studentList);
         modelAndView.setViewName("index");
 
         return modelAndView;

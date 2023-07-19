@@ -65,13 +65,6 @@
                 "url" : "/api/students",
             },
             "columns" : [
-                // {
-                //     "title" : "SL.No",
-                //     "rowCallback" : function (row, data, index) {
-                //         var  counter = index + 1;
-                //         $('td:eq(0)', row).text(counter);
-                //     }
-                // },
                 {   "title" : "ID",
                     "data" : "id"
                 },
