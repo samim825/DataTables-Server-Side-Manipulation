@@ -7,80 +7,69 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class StudentController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    StudentServiceImpl studentService;
+    private StudentServiceImpl studentService;
 
 
-    @PostMapping
-    public Student saveStudent(Student student){
+    @GetMapping("/")
+    public ModelAndView showHomePage(ModelAndView modelAndView){
 
-        logger.info("Create student with {}", student.toString());
-        return studentService.save(student);
+        modelAndView.setViewName("index");
 
+        return modelAndView;
     }
 
-    @PutMapping
-    public Student updateStudent(@RequestBody Student student){
-        return studentService.save(student);
-    }
-
-    @DeleteMapping("/id/{id}")
-    public void deleteStudent(Integer id){
-        studentService.deleteById(id);
-    }
-
-    @GetMapping("/id/{id}")
-    public Optional<Student> getStudentById(@PathVariable Integer id){
-
-        return studentService.findById(id);
-
-    }
-
-    @GetMapping("/students")
-    public DataTableResponse<Student> getAllStudent(HttpServletRequest request){
-
-        String[] columns = "id,name,email,dept".split(",");
-
-        int start = Integer.parseInt(request.getParameter("start"));
-        int length = Integer.parseInt(request.getParameter("length"));
-        int draw = Integer.parseInt(request.getParameter("draw"));
-        String search = request.getParameter("search[value]");
-
-
-        logger.info(" Start : {} , Length : {} , Draw : {}", start, length, draw);
-        logger.info("Search : {}", request.getParameter("search[value]"));
-        Sort.Direction direction = request.getParameter("order[0][dir]").equals("asc")? Sort.Direction.ASC : Sort.Direction.DESC ;
-        int collIndex = Integer.parseInt(request.getParameter("order[0][column]"));
-
-        Page<Student> studentList;
-        Pageable pageable = PageRequest.of(start/length, length, Sort.by(direction,columns[collIndex]));
-
-        if(search.equals("")){
-
-            studentList = (Page<Student>)  studentService.findAll(pageable);
-        } else {
-            studentList = studentService.searchStudents(search, pageable);
+    @GetMapping("/upsertStudent")
+    public ModelAndView showCreateStudentPage(ModelAndView modelAndView, @RequestParam(value = "id", required = false) Integer id){
+        Student student = new Student();
+        logger.info("Student id : {}", id);
+        try{
+            if(id != null){
+                student = studentService.findById(id).get();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        DataTableResponse<Student> dataTableResponse = new DataTableResponse<>();
-        dataTableResponse.setDraw(draw);
-        dataTableResponse.setData(studentList.getContent());
-        dataTableResponse.setRecordsTotal(studentList.getTotalElements());
-        dataTableResponse.setRecordsFiltered(studentList.getTotalElements());
+        modelAndView.addObject("student", student);
+        modelAndView.setViewName("student");
 
-        return dataTableResponse;
+        return modelAndView;
     }
 
+    @PostMapping("/upsertStudent")
+    public ModelAndView updateAndCreateStudent(@ModelAttribute("student") Student student, ModelAndView modelAndView){
+        logger.info("Student : {}", student.toString());
+        studentService.save(student);
+        modelAndView.setViewName("redirect:/");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/edit/id/{id}")
+    public ModelAndView updateStudent(@PathVariable("id") Integer id, ModelAndView modelAndView){
+        modelAndView.setViewName("redirect:/upsertStudent?id="+id);
+        return modelAndView;
+    }
+
+    @GetMapping("/delete/id/{id}")
+    public ModelAndView deleteStudent(@PathVariable("id") Integer id, ModelAndView modelAndView){
+        logger.info("id : {}", id);
+        studentService.deleteById(id);
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
 
 }

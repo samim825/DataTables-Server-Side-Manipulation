@@ -11,8 +11,6 @@ public interface StudentService {
 
     Student save(Student student);
 
-    Student update(Student student);
-
     Optional<Student> findById(Integer id);
 
     void deleteById(Integer id);
@@ -20,6 +18,8 @@ public interface StudentService {
     Page<Student> findAll(Pageable pageable);
 
     Page<Student> searchStudents(String search, Pageable pageable);
+
+    Boolean isExistsByEmail(String email);
 
 
 }

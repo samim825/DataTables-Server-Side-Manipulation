@@ -22,11 +22,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student update(Student student) {
-        return studentRepository.save(student);
-    }
-
-    @Override
     public Optional<Student> findById(Integer id) {
         return studentRepository.findById(id);
     }
@@ -44,5 +39,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Page<Student> searchStudents(String search, Pageable pageable) {
         return studentRepository.searchBy(search, pageable);
+    }
+
+    @Override
+    public Boolean isExistsByEmail(String email) {
+        return studentRepository.existsByEmail(email);
     }
 }

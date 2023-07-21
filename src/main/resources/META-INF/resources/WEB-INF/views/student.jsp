@@ -1,6 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page import="com.example.crud.model.Student" %>
 <%@ page import="org.springframework.data.domain.Page" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,47 +52,57 @@
 </header>
 <div class="container">
     <br><br>
-    <a  class="btn btn-md btn-primary float-right" href="/upsertStudent">Add new</a><br><br>
 
-    <table class="table table-hover table-striped table-bordered" id="myTable">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <diV class="col-sm-6">
+            <form:form modelAttribute="student">
+                <form:hidden path="id"/>
+                <div class="form-group">
+                    <label>Name </label>
+                    <form:input class="form-control" type="text" path="name" placeholder="Enter student name ..." autocomplete="false" required="true"/>
+                </div>
+                <div class="form-group">
+                    <label>E-mail </label>
+                    <form:input class="form-control" type="email" path="email" placeholder="Enter student email ..." autocomplete="false" required="true"/>
+                    <label id="result" style="color: red"> </label>
+                </div>
+                <div class="form-group">
+                    <label>Department </label>
+                    <form:input class="form-control" type="text" path="dept" placeholder="Enter student department ..." autocomplete="false" required="true"/>
+                </div>
+                <div class="form-group">
+                    <input class="form-control btn-success mt-2" type="submit" value="Submit"/>
+                    <input class="form-control btn-primary mt-2" type="reset" value="Reset"/>
+                </div>
 
-    </table>
+            </form:form>
+
+        </diV>
+        <div class="col-sm-3"></div>
+
+    </div>
     <br>
 </div>
 
 <script>
-    $(document).ready( function () {
-      var myTable =   $('#myTable').DataTable({
-            "processing" : true,
-            "serverSide" : true,
-            "ajax" : {
-                "url" : "/api/students",
-            },
-            "columns" : [
-                {   "title" : "ID",
-                    "data" : "id"
-                },
-                {   "title" : "Name",
-                    "data" : "name"
-                },
-                {   "title" : "E-mail",
-                    "data" : "email"
-                },
-                {   "title" : "Dept",
-                    "data" : "dept"
-                },
-                {
-                    "title" : "Action",
-                    "data" : null,
-                    "orderable" : false,
-                    "render" : function (data) {
-                        return '<a href="/edit/id/'+data.id+'">Edit</a> <a href="/delete/id/'+data.id+'">Delete</a>';
+
+        $(document).ready(function () {
+        $('#email').change(function () {
+            var email = $('#email').val();
+
+            $.ajax({
+                type: 'GET',
+                url: 'api/students/check/email?email='+email,
+                success: function (result) {
+                    if(result = true){
+                        $('#result').html("E-mail already exist");
                     }
                 }
-            ]
-
+            });
         });
-    } );
+    });
+
 </script>
 </body>
 </html>
