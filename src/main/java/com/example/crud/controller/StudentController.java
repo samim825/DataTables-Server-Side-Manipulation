@@ -58,12 +58,6 @@ public class StudentController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/id/{id}")
-    public ModelAndView updateStudent(@PathVariable("id") Integer id, ModelAndView modelAndView){
-        modelAndView.setViewName("redirect:/upsertStudent?id="+id);
-        return modelAndView;
-    }
-
     @GetMapping("/delete/id/{id}")
     public ModelAndView deleteStudent(@PathVariable("id") Integer id, ModelAndView modelAndView){
         logger.info("id : {}", id);

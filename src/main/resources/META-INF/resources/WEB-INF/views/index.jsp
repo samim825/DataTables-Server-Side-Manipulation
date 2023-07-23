@@ -84,7 +84,7 @@
                     "data" : null,
                     "orderable" : false,
                     "render" : function (data) {
-                        return '<a href="/edit/id/'+data.id+'">Edit</a> <a href="/delete/id/'+data.id+'">Delete</a>';
+                        return '<a href="/upsertStudent?id='+data.id+'">Edit</a> <a href="/delete/id/'+data.id+'">Delete</a>';
                     }
                 }
             ]
