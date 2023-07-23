@@ -69,6 +69,7 @@ Open your web browser and navigate to http://localhost:8090 to access the applic
 #### DataTable Server side Processing
 
  - DataTable sent some parameters
- - After working based on the parameters its expect some data
+ - After working based on the parameters its expect some data.
+   
 To know about this , You can follow following url : 
 https://datatables.net/manual/server-side
